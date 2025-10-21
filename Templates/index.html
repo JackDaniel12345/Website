@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Laundry Service Tracker</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0; padding: 0;
+    }
+
+    /* Common styles */
+    .hidden {
+      display: none;
+    }
+
+    /* Login styles */
+    .login-container {
+      max-width: 400px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .login-container input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .login-container button {
+      padding: 10px 20px;
+      background: #415A77;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .login-container button:hover {
+      background: #2c3e50;
+    }
+    .error-message {
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    /* Homepage styles */
+    header {
+      background: #fff;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0;
+    }
+    header nav a {
+      text-decoration: none;
+      color: #415A77;
+      font-weight: bold;
+    }
+    main {
+      padding: 40px;
+      text-align: center;
+    }
+    .dashboard-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      width: 300px;
+      margin: 20px auto;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN SECTION -->
+  <section id="login-section" class="">
+    <div class="login-container">
+      <h2>🧺 Laundry Tracker Login</h2>
+      <form method="POST" action="/login">
+        <input type="text" name="username" placeholder="Username" required /><br />
+        <input type="password" name="password" placeholder="Password" required /><br />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- HOMEPAGE SECTION -->
+  <section id="home-section" class="hidden">
+    <header>
+      <h1>Welcome, <!-- username goes here -->User!</h1>
+      <nav><a href="/logout">Logout</a></nav>
+    </header>
+
+    <main>
+      <h2>📋 Laundry Dashboard</h2>
+      <p>This is your dashboard. You can now track and manage laundry jobs.</p>
+
+      <div class="dashboard-box">
+        <p>🧼 Total Jobs: 12</p>
+        <p>⏳ In Progress: 3</p>
+        <p>✅ Completed: 9</p>
+      </div>
+    </main>
+  </section>
+
+</body>
+</html>

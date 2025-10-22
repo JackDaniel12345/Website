@@ -2,114 +2,125 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Laundry Service Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laundry Service Tracker - Home</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #f4f4f4;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Common styles */
-    .hidden {
-      display: none;
-    }
-
-    /* Login styles */
-    .login-container {
-      max-width: 400px;
-      margin: 80px auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .login-container input {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    .login-container button {
-      padding: 10px 20px;
-      background: #415A77;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .login-container button:hover {
-      background: #2c3e50;
-    }
-    .error-message {
-      color: red;
-      margin-bottom: 10px;
-    }
-
-    /* Homepage styles */
     header {
-      background: #fff;
-      padding: 20px;
+      background-color: #415A77;
+      color: white;
+      padding: 20px 40px;
       display: flex;
       justify-content: space-between;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      align-items: center;
     }
+
     header h1 {
       margin: 0;
     }
-    header nav a {
+
+    nav a {
+      color: white;
       text-decoration: none;
-      color: #415A77;
+      margin-left: 20px;
       font-weight: bold;
     }
-    main {
-      padding: 40px;
-      text-align: center;
+
+    nav a:hover {
+      text-decoration: underline;
     }
-    .dashboard-box {
-      background: #fff;
+
+    main {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .user-list {
+      max-width: 600px;
+      background: white;
       border-radius: 10px;
+      margin: 30px auto;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
       padding: 20px;
-      width: 300px;
-      margin: 20px auto;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    .user-list h3 {
+      margin-bottom: 20px;
+      color: #415A77;
+    }
+
+    .user {
+      background-color: #f9f9f9;
+      margin: 10px auto;
+      padding: 10px;
+      border-radius: 8px;
+      width: 80%;
+      border-left: 4px solid #415A77;
+      text-align: left;
+    }
+
+    .user span {
+      font-weight: bold;
+      color: #333;
+    }
+
+    footer {
+      background-color: #415A77;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 50px;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>🧺 Laundry Service Tracker</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
 
-  <!-- LOGIN SECTION -->
-  <section id="login-section" class="">
-    <div class="login-container">
-      <h2>🧺 Laundry Tracker Login</h2>
-      <form method="POST" action="/login">
-        <input type="text" name="username" placeholder="Username" required /><br />
-        <input type="password" name="password" placeholder="Password" required /><br />
-        <button type="submit">Login</button>
-      </form>
+  <main>
+    <h2>Welcome to Laundry Service Tracker</h2>
+    <p>Monitor active users and their laundry activities in real-time.</p>
+
+    <div class="user-list" id="userList">
+      <h3>👥 Active Users</h3>
+      <div class="user"><span>Admin</span> — Managing orders</div>
+      <div class="user"><span>Customer1</span> — Tracking laundry status</div>
+      <div class="user"><span>Customer2</span> — Added new laundry order</div>
+      <div class="user"><span>Customer3</span> — Laundry ready for pickup</div>
     </div>
-  </section>
+  </main>
 
-  <!-- HOMEPAGE SECTION -->
-  <section id="home-section" class="hidden">
-    <header>
-      <h1>Welcome, <!-- username goes here -->User!</h1>
-      <nav><a href="/logout">Logout</a></nav>
-    </header>
+  <footer>
+    <p>&copy; 2025 Laundry Service Tracker. All rights reserved.</p>
+  </footer>
 
-    <main>
-      <h2>📋 Laundry Dashboard</h2>
-      <p>This is your dashboard. You can now track and manage laundry jobs.</p>
+  <script>
+    // Optional: Simulate dynamic updates to show users joining
+    const users = [
+      "Admin — Managing orders",
+      "Customer1 — Tracking laundry status",
+      "Customer2 — Added new laundry order",
+      "Customer3 — Laundry ready for pickup",
+    ];
 
-      <div class="dashboard-box">
-        <p>🧼 Total Jobs: 12</p>
-        <p>⏳ In Progress: 3</p>
-        <p>✅ Completed: 9</p>
-      </div>
-    </main>
-  </section>
-
+    setInterval(() => {
+      const userList = document.getElementById("userList");
+      const newUser = document.createElement("div");
+      newUser.classList.add("user");
+      newUser.innerHTML = `<span>Customer${Math.floor(Math.random() * 100)}</span> — Logged in`;
+      userList.appendChild(newUser);
+    }, 8000); // adds a random user every 8 seconds
+  </script>
 </body>
 </html>

@@ -2,21 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Home - Laundry Service Tracker</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <title>Home - Clothing Laundry Service Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='Styles.css') }}">
 </head>
 <body>
-  <header>
-    <h1>👔 Clothing Laundry Service Tracker</h1>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/logout">Logout</a>
-    </nav>
-  </header>
+  <div class="home-container">
+    <div class="overlay">
+      <header>
+        <h1>👕 Clothing Laundry Service Tracker</h1>
+        <nav>
+          <a href="{{ url_for('login') }}">Login</a>
+          <a href="{{ url_for('register') }}">Register</a>
+        </nav>
+      </header>
 
-  <main>
-    <h2>Welcome, {{ username }}!</h2>
-    <p>Track and manage your laundry services easily.</p>
-  </main>
+      <main>
+        <h2>Track Your Laundry, Anytime & Anywhere 🧺</h2>
+        <p>Our Laundry Service Tracker helps you easily monitor your clothes’ cleaning status, manage orders, and get notifications when they’re ready for pickup.</p>
+
+        <a href="{{ url_for('login') }}" class="btn">Get Started</a>
+      </main>
+
+      <footer>
+        <p>© 2025 Clothing Laundry Service Tracker | Designed with ❤️</p>
+      </footer>
+    </div>
+  </div>
 </body>
 </html>

@@ -3,20 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <title>Register - Laundry Service Tracker</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='Styles.css') }}">
 </head>
 <body>
-  <div class="register-container">
-    <h2>🧺 Create an Account</h2>
+  <div class="container">
+    <div class="form-box">
+      <h2>🧼 Create an Account</h2>
 
-    <form method="POST" action="/register">
-      <input type="text" name="username" placeholder="Enter Username" required><br>
-      <input type="password" name="password" placeholder="Enter Password" required><br>
-      <button type="submit">Register</button>
-    </form>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <p class="flash {{ category }}">{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
 
-    <div class="login-link">
-      Already have an account? <a href="{{ url_for('login') }}">Login</a>
+      <form method="POST">
+        <input type="text" name="username" placeholder="Username" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <input type="password" name="confirm" placeholder="Confirm Password" required><br>
+
+        <label for="role">Select User Type:</label><br>
+        <select name="role" id="role" required>
+          <option value="" disabled selected>Choose Role</option>
+          <option value="customer">Customer</option>
+          <option value="staff">Laundry Staff</option>
+        </select><br><br>
+
+        <button type="submit">Register</button>
+      </form>
+
+      <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
     </div>
   </div>
 </body>

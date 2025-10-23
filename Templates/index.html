@@ -1,126 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Laundry Service Tracker - Home</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #415A77;
-      color: white;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header h1 {
-      margin: 0;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    main {
-      text-align: center;
-      padding: 50px 20px;
-    }
-
-    .user-list {
-      max-width: 600px;
-      background: white;
-      border-radius: 10px;
-      margin: 30px auto;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      padding: 20px;
-    }
-
-    .user-list h3 {
-      margin-bottom: 20px;
-      color: #415A77;
-    }
-
-    .user {
-      background-color: #f9f9f9;
-      margin: 10px auto;
-      padding: 10px;
-      border-radius: 8px;
-      width: 80%;
-      border-left: 4px solid #415A77;
-      text-align: left;
-    }
-
-    .user span {
-      font-weight: bold;
-      color: #333;
-    }
-
-    footer {
-      background-color: #415A77;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 50px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Home - Laundry Service Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
   <header>
-    <h1>🧺 Laundry Service Tracker</h1>
+    <h1>👔 Clothing Laundry Service Tracker</h1>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="login.html">Login</a>
+      <a href="/">Home</a>
+      <a href="/logout">Logout</a>
     </nav>
   </header>
 
   <main>
-    <h2>Welcome to Laundry Service Tracker</h2>
-    <p>Monitor active users and their laundry activities in real-time.</p>
-
-    <div class="user-list" id="userList">
-      <h3>👥 Active Users</h3>
-      <div class="user"><span>Admin</span> — Managing orders</div>
-      <div class="user"><span>Customer1</span> — Tracking laundry status</div>
-      <div class="user"><span>Customer2</span> — Added new laundry order</div>
-      <div class="user"><span>Customer3</span> — Laundry ready for pickup</div>
-    </div>
+    <h2>Welcome, {{ username }}!</h2>
+    <p>Track and manage your laundry services easily.</p>
   </main>
-
-  <footer>
-    <p>&copy; 2025 Laundry Service Tracker. All rights reserved.</p>
-  </footer>
-
-  <script>
-    // Optional: Simulate dynamic updates to show users joining
-    const users = [
-      "Admin — Managing orders",
-      "Customer1 — Tracking laundry status",
-      "Customer2 — Added new laundry order",
-      "Customer3 — Laundry ready for pickup",
-    ];
-
-    setInterval(() => {
-      const userList = document.getElementById("userList");
-      const newUser = document.createElement("div");
-      newUser.classList.add("user");
-      newUser.innerHTML = `<span>Customer${Math.floor(Math.random() * 100)}</span> — Logged in`;
-      userList.appendChild(newUser);
-    }, 8000); // adds a random user every 8 seconds
-  </script>
 </body>
 </html>

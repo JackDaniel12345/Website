@@ -4,22 +4,19 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key = 'laundry_secret_key'
 
-# Temporary in-memory user storage (use a database in the future)
+# In-memory user storage
 users = {}
-
-# -----------------------------
-# ROUTES
-# -----------------------------
 
 @app.route('/')
 def home():
-    # Only show homepage if logged in
     if 'username' in session:
         username = session['username']
-        return render_template('index.html', username=username)
-    else:
-        return redirect(url_for('login'))
+        role = session.get('role')
 
+        if role == 'admin':
+            return redirect(url_for('admin_dashboard'))
+        return render_template('index.html', username=username)
+    return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -27,21 +24,24 @@ def register():
         username = request.form['username'].strip()
         password = request.form['password'].strip()
 
-        if username in users:
-            flash('Username already exists!', 'error')
-            return redirect(url_for('register'))
-
         if not username or not password:
             flash('Please fill in all fields!', 'error')
             return redirect(url_for('register'))
 
-        # Hash the password
-        users[username] = generate_password_hash(password)
+        if username in users:
+            flash('Username already exists!', 'error')
+            return redirect(url_for('register'))
+
+        # Save user as a customer by default
+        users[username] = {
+            'password': generate_password_hash(password),
+            'role': 'customer'
+        }
+
         flash('Registration successful! You can now log in.', 'success')
         return redirect(url_for('login'))
 
     return render_template('register.html')
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -49,8 +49,17 @@ def login():
         username = request.form['username'].strip()
         password = request.form['password'].strip()
 
-        if username in users and check_password_hash(users[username], password):
+        # Admin login
+        if username == 'admin' and password == 'admin123':
+            session['username'] = 'admin'
+            session['role'] = 'admin'
+            flash('Welcome Admin!', 'success')
+            return redirect(url_for('admin_dashboard'))
+
+        # Regular users
+        if username in users and check_password_hash(users[username]['password'], password):
             session['username'] = username
+            session['role'] = users[username]['role']
             flash('Login successful!', 'success')
             return redirect(url_for('home'))
         else:
@@ -59,13 +68,19 @@ def login():
 
     return render_template('login.html')
 
+@app.route('/admin')
+def admin_dashboard():
+    if 'username' in session and session.get('role') == 'admin':
+        return render_template('admin.html', username=session['username'])
+    else:
+        flash('Access denied! Admins only.', 'error')
+        return redirect(url_for('login'))
 
 @app.route('/logout')
 def logout():
-    session.pop('username', None)
+    session.clear()
     flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
-
 
 if __name__ == '__main__':
     app.run(debug=True)

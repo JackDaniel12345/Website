@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Register - Laundry Service Tracker</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='Styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
   <div class="container">
@@ -19,16 +19,22 @@
       {% endwith %}
 
       <form method="POST">
-        <input type="text" name="username" placeholder="Username" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
-        <input type="password" name="confirm" placeholder="Confirm Password" required><br>
+        <div class="input-group">
+          <label for="username"></label>
+          <input type="text" id="username" name="username" placeholder="Enter username" required>
+        </div>
 
-        <label for="role">Select User Type:</label><br>
-        <select name="role" id="role" required>
-          <option value="" disabled selected>Choose Role</option>
-          <option value="customer">Customer</option>
-          <option value="staff">Laundry Staff</option>
-        </select><br><br>
+        <div class="input-group password-field">
+          <label for="password"></label>
+          <input type="password" id="password" name="password" placeholder="Enter password" required>
+          <span class="toggle" onclick="togglePassword('password', this)">👁️</span>
+        </div>
+
+        <div class="input-group password-field">
+          <label for="confirm"></label>
+          <input type="password" id="confirm" name="confirm" placeholder="Confirm password" required>
+          <span class="toggle" onclick="togglePassword('confirm', this)">👁️</span>
+        </div>
 
         <button type="submit">Register</button>
       </form>
@@ -36,5 +42,18 @@
       <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
     </div>
   </div>
+
+  <script>
+    function togglePassword(id, element) {
+      const input = document.getElementById(id);
+      if (input.type === "password") {
+        input.type = "text";
+        element.textContent = "🙈";
+      } else {
+        input.type = "password";
+        element.textContent = "👁️";
+      }
+    }
+  </script>
 </body>
 </html>

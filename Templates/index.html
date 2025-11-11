@@ -8,24 +8,66 @@
 <body>
   <div class="home-container">
     <div class="overlay">
+      <!-- Header -->
       <header>
         <h1>👕 Clothing Laundry Service Tracker</h1>
         <nav>
-          <a href="{{ url_for('login') }}">Login</a>
-          <a href="{{ url_for('register') }}">Register</a>
+          <a href="{{ url_for('about_us') }}">About Us</a>
+
+          <!-- 🔹 Show Logout if logged in -->
+          {% if session.get('username') %}
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+          {% endif %}
         </nav>
       </header>
 
+      <!-- Main Content -->
       <main>
         <h2>Track Your Laundry, Anytime & Anywhere 🧺</h2>
-        <p>Our Laundry Service Tracker helps you easily monitor your clothes’ cleaning status, manage orders, and get notifications when they’re ready for pickup.</p>
+        <p>
+          Our Laundry Service Tracker helps you easily monitor your clothes’ cleaning status, manage your laundry orders,
+          and receive instant updates when they’re ready for pickup or delivery. Whether you're at home, at work, or on the go,
+          our platform ensures your garments are handled with care and delivered on time. Simplify your laundry experience —
+          schedule, track, and manage everything from one convenient place.
+        </p>
 
-        <a href="{{ url_for('login') }}" class="btn">Get Started</a>
+        <!-- Add Order Button (if logged in as customer) -->
+        {% if session.get('username') and session.get('role') == 'customer' %}
+          <a href="{{ url_for('customer_dashboard') }}" class="add-order-btn">➕ Add Laundry Order</a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="add-order-btn">Get Started</a>
+        {% endif %}
       </main>
 
-      <footer>
-        <p>© 2025 Clothing Laundry Service Tracker | Designed with ❤️</p>
-      </footer>
+      <!-- 🔹 Features Section -->
+      <section class="features-section">
+        <h2>Our Laundry Services</h2>
+        <div class="features-container">
+          <div class="feature-card">
+            <img src="{{ url_for('static', filename='Wash and Fold.jpg') }}" alt="Wash and Fold">
+            <div class="feature-content">
+              <h3>Wash & Fold</h3>
+              <p>Enjoy fresh, neatly folded clothes with our reliable wash and fold service — fast, simple, and affordable.</p>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <img src="{{ url_for('static', filename='Dry Clean.jpg') }}" alt="Dry Clean">
+            <div class="feature-content">
+              <h3>Dry Cleaning</h3>
+              <p>Keep your delicate garments spotless and crisp with our professional dry-cleaning care.</p>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <img src="{{ url_for('static', filename='Iron Only.jpg') }}" alt="Iron Only">
+            <div class="feature-content">
+              <h3>Iron Only</h3>
+              <p>Need perfectly pressed clothes? Our ironing service gives your outfits that clean, sharp finish.</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </body>

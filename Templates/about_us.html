@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us - Laundry Service Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header>
+    <h1>🧺 About Us</h1>
+    <nav>
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+  </header>
+
+  <main class="about-section">
+    <h2>Welcome, {{ username }}!</h2>
+
+    <section>
+      <p>
+        We are a dedicated laundry service providing fast, reliable, and affordable cleaning solutions.
+        Our goal is to make your laundry experience convenient, eco-friendly, and completely hassle-free.
+      </p>
+
+      <p>
+        Established with the mission to simplify your daily chores, we offer a range of services including
+        washing, ironing, dry cleaning, and doorstep pickup & delivery. Whether it’s your daily wear or
+        delicate fabrics, our team handles each garment with care and precision.
+      </p>
+
+      <p>
+        Our Laundry Service Tracker platform lets you monitor your laundry orders in real-time —
+        from pickup to delivery. No more guessing when your clothes will be ready!
+      </p>
+    </section>
+
+    <section>
+      <h3>🌿 Our Promise</h3>
+      <ul>
+        <li>✅ 100% satisfaction guarantee</li>
+        <li>♻️ Eco-friendly detergents and energy-efficient machines</li>
+        <li>🚚 On-time pickup and delivery</li>
+        <li>💬 Friendly customer support available 24/7</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>📞 Contact Us</h3>
+      <p>
+        Have a question, suggestion, or just want to say hi? Reach out to us anytime at
+        <strong>info@laundryservice.com</strong> or call us at <strong>0966 795 4091</strong>.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; {{ current_year }} Laundry Service Tracker. All rights reserved.</p>
+  </footer>
+</body>
+</html>

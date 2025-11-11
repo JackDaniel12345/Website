@@ -1,68 +1,308 @@
+/* ===============================
+   GLOBAL STYLES
+================================== */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   background: url('background.jpg') no-repeat center center fixed;
   background-size: cover;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  background: rgba(255, 255, 255, 0.85);
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  width: 320px;
-  text-align: center;
-}
-
-h2 {
-  margin-bottom: 20px;
+  min-height: 100vh;
   color: #333;
 }
 
-input {
-  width: 90%;
+/* ===============================
+   HEADER & NAVIGATION
+================================== */
+header {
+  background: rgba(0, 123, 255, 0.95);
+  color: white;
+  padding: 15px 0;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+nav a:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
+/* ===============================
+   MAIN CONTENT (CUSTOMER & STAFF)
+================================== */
+main, .container {
+  background: rgba(255, 255, 255, 0.9);
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* ===============================
+   CUSTOMER DASHBOARD
+================================== */
+.customer-dashboard {
+  max-width: 820px;
+  margin: 60px auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 40px 50px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.customer-dashboard h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.customer-dashboard .welcome {
+  margin-bottom: 20px;
+  color: #444;
+  font-size: 16px;
+}
+
+.customer-dashboard .flash.success {
+  background-color: #d4edda;
+  color: #155724;
   padding: 10px;
-  margin: 10px 0;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+/* generic section spacing */
+.section {
+  margin-top: 30px;
+}
+
+/* ===============================
+   FORM ROW HELPERS
+================================== */
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.form-row .label-inline {
+  min-width: 140px;
+  text-align: right;
+  margin-right: 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+textarea,
+input[type="text"],
+input[type="number"],
+select {
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  box-sizing: border-box;
 }
 
-button {
+.address-form .address-input {
+  width: 520px;
+  max-width: calc(100% - 180px);
+  min-height: 70px;
+}
+
+.address-form .save-btn {
+  white-space: nowrap;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+.address-form .save-btn:hover { background-color: #0056b3; transform: translateY(-2px); }
+
+.order-form .service-select {
+  width: 420px;
+  max-width: calc(100% - 280px);
+}
+
+.order-form .kg-input {
+  width: 140px;
+  text-align: left;
+}
+
+.order-form .place-btn {
+  white-space: nowrap;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+.order-form .place-btn:hover { background-color: #0056b3; transform: translateY(-2px); }
+
+.section textarea,
+.section input,
+.section select {
   width: 100%;
-  padding: 10px;
+}
+
+.form-spacer {
+  height: 8px;
+}
+
+/* ===============================
+   MY ORDERS TABLE (Customer)
+================================== */
+.customer-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.06);
+}
+
+.customer-dashboard th {
   background-color: #007bff;
   color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 10px;
+  text-align: left;
 }
 
-button:hover {
-  background-color: #0056b3;
+.customer-dashboard td {
+  background-color: #fff;
+  border: 1px solid #eee;
+  padding: 10px;
+  text-align: left;
 }
 
-p {
-  font-size: 14px;
+.customer-dashboard tr:nth-child(even) td {
+  background-color: #f9f9f9;
 }
 
-a {
+.customer-dashboard tr:hover td {
+  background-color: #f1f8ff;
+}
+
+/* ===============================
+   ADMIN TABLE WRAPPER
+================================== */
+.table-wrapper {
+  background: rgba(255, 255, 255, 0.95);
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.table-wrapper h2 {
+  text-align: center;
   color: #007bff;
-  text-decoration: none;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-a:hover {
-  text-decoration: underline;
+/* ===============================
+   BUTTONS
+================================== */
+button,
+.manage-orders-btn {
+  background-color: #007bff;
+  color: #fff !important;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none !important;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
+button:hover,
+.manage-orders-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* 🔹 Add Laundry Order Button */
+.add-order-btn {
+  display: inline-block;
+  background-color: #007bff !important;
+  color: #fff !important;
+  font-weight: bold;
+  padding: 12px 28px;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0, 123, 255, 0.4);
+  margin-top: 20px;
+}
+
+.add-order-btn:hover {
+  background-color: #0056b3 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 86, 179, 0.5);
+}
+
+/* ===============================
+   FLASH MESSAGES
+================================== */
 .flash {
   padding: 10px;
   border-radius: 8px;
   font-size: 14px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .flash.success {
@@ -73,4 +313,337 @@ a:hover {
 .flash.error {
   background-color: #f8d7da;
   color: #721c24;
+}
+
+/* ===============================
+   LOGIN & REGISTER FORMS
+================================== */
+.form-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 50px;
+  border-radius: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  width: 500px;
+  text-align: center;
+  margin: 100px auto;
+}
+
+.form-box h2 {
+  margin-bottom: 25px;
+  color: #000;
+  font-size: 26px;
+}
+
+.form-box input[type="text"],
+.form-box input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  box-sizing: border-box;
+  transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-box input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.form-box button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.form-box button:hover {
+  background-color: #0056b3;
+}
+
+.form-box p {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+.form-box p a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.form-box p a:hover {
+  text-decoration: underline;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field .toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  color: #555;
+}
+
+/* ===============================
+   ADMIN MANAGE ORDERS PAGE
+================================== */
+
+.admin-container {
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.admin-container h2 {
+  color: #007bff;
+  margin-bottom: 25px;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.table-card {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.orders-table th {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  text-align: center;
+}
+
+.orders-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.orders-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.orders-table tr:hover {
+  background-color: #eef6ff;
+  transition: background 0.2s ease-in-out;
+}
+
+/* Inline forms for Update/Delete buttons */
+.inline-form {
+  display: inline-block;
+  margin: 5px;
+}
+
+.inline-form select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.btn-update {
+  background-color: #007bff;
+}
+
+.btn-update:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.btn-delete {
+  background-color: #dc3545;
+}
+
+.btn-delete:hover {
+  background-color: #a71d2a;
+  transform: translateY(-2px);
+}
+
+.empty-message {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+}
+
+/* ===============================
+   RESPONSIVE
+================================== */
+@media (max-width: 900px) {
+  .customer-dashboard {
+    padding: 30px 30px;
+    margin: 30px 20px;
+    max-width: 100%;
+  }
+
+  .form-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .form-row .label-inline {
+    display: none;
+  }
+
+  .address-form .address-input {
+    width: 100%;
+  }
+
+  .order-form .service-select,
+  .order-form .kg-input {
+    width: 100%;
+  }
+
+  button, .manage-orders-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  main, .container, .form-box, .table-wrapper, .customer-dashboard {
+    width: 90%;
+    max-width: 100%;
+    padding: 25px;
+  }
+
+  .section input,
+  .section select,
+  .section textarea {
+    width: 100%;
+  }
+}
+
+/* ===============================
+   HOME PAGE FEATURES SECTION
+================================== */
+.features-section {
+  padding: 60px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 20px;
+  margin: 50px auto;
+  max-width: 1100px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.features-section h2 {
+  color: #007bff;
+  font-size: 28px;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.features-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+/* ✅ Modern card layout */
+.feature-card {
+  background: #fff;
+  border-radius: 16px;
+  width: 320px;
+  height: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* ✅ Image styling - no cropping, sharp visuals */
+.feature-card img {
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: contain;
+  border-bottom: 1px solid #eee;
+  background-color: #f9f9f9;
+}
+
+/* ✅ Card content below images */
+.feature-content {
+  padding: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.feature-content h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #007bff;
+  font-weight: 600;
+}
+
+.feature-content p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* ✅ Responsive adjustments */
+@media (max-width: 900px) {
+  .features-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-card {
+    width: 90%;
+    max-width: 360px;
+  }
 }

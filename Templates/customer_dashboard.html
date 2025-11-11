@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Dashboard - Laundry Service Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <meta http-equiv="refresh" content="15"> <!-- Auto-refresh every 15 seconds -->
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>🧺 Customer Dashboard</h1>
+    <nav>
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('about_us') }}">About Us</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Dashboard Card -->
+  <main class="customer-dashboard">
+    <h2>Welcome, {{ username }} (Customer)</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- Address Section -->
+    <section class="section address-section">
+      <h3>🏠 Pickup / Delivery Address</h3>
+      <form action="{{ url_for('update_address') }}" method="POST">
+        <textarea name="address" rows="3" placeholder="Enter your full address..." required>{{ address }}</textarea>
+        <button type="submit">Save Address</button>
+      </form>
+
+      {% if address %}
+      <div class="current-address">
+        <p><strong>Current Address:</strong> {{ address }}</p>
+      </div>
+      {% endif %}
+    </section>
+
+    <!-- Place Order Section -->
+    <section class="section order-section">
+      <h3>🧼 Place Laundry Order</h3>
+      <form action="{{ url_for('place_order') }}" method="POST">
+        <label for="service">Select Service:</label>
+        <select name="service_id" required>
+          {% for service in services %}
+            <option value="{{ service.id }}">{{ service.name }} - ₱{{ service.price_per_kg }}/kg</option>
+          {% endfor %}
+        </select>
+
+        <label for="kilograms">Enter Kilograms:</label>
+        <input type="number" name="kilograms" min="1" step="0.1" required>
+
+        <button type="submit">Place Order</button>
+      </form>
+    </section>
+
+    <!-- Orders Section -->
+    <section class="section my-orders-section">
+      <h3>📝 My Orders</h3>
+
+      {% if orders %}
+        <table>
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Kilograms</th>
+              <th>Total Price</th>
+              <th>Status</th>
+              <th>Last Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr>
+              <td>{{ order.service_name }}</td>
+              <td>{{ order.kilograms }}</td>
+              <td>₱{{ "%.2f"|format(order.total_price) }}</td>
+              <td>{{ order.status }}</td>
+              <td>{{ order.created_at }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>You haven't placed any orders yet.</p>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>

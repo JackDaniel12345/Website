@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Laundry Service Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <!-- ==============================
+       HEADER & NAVIGATION
+  =============================== -->
+  <header>
+    <h1>🧼 Admin Dashboard</h1>
+    <nav>
+      <a href="{{ url_for('admin_dashboard') }}">Home</a>
+      <a href="{{ url_for('logout') }}">🚪 Logout</a>
+    </nav>
+  </header>
+
+  <!-- ==============================
+       MAIN CONTENT
+  =============================== -->
+  <main class="container">
+    <h2>Welcome, {{ username }} (Staff)</h2>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+            <p class="flash {{ category }}">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Order Summary -->
+    <section>
+      <p><strong>Pending Orders:</strong> {{ pending_count }}</p>
+      <p><strong>Completed Orders:</strong> {{ completed_count }}</p>
+    </section>
+
+    <!-- Manage Orders Button -->
+    <section>
+      <a href="{{ url_for('admin_orders') }}" class="manage-orders-btn">🧺 Manage Orders</a>
+    </section>
+  </main>
+</body>
+</html>

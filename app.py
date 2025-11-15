@@ -133,13 +133,11 @@ def register():
                 (username, hashed_password, 'customer')
             )
             conn.commit()
-            user = conn.execute("SELECT * FROM users WHERE username=?", (username,)).fetchone()
-            session['username'] = user['username']
-            session['role'] = user['role']
-            session['user_id'] = user['id']
-            flash('Account created successfully! Welcome!', 'success')
             conn.close()
-            return redirect(url_for('index'))
+
+            # ✅ Redirect to login page instead of auto login
+            flash('Account created successfully! Please log in.', 'success')
+            return redirect(url_for('login'))
         except sqlite3.IntegrityError:
             flash('Username already exists!', 'error')
             conn.close()
@@ -181,6 +179,9 @@ def login():
 @app.route('/index')
 def index():
     """Render the main homepage (index.html)."""
+    if 'username' not in session:
+        flash('Please log in first!', 'error')
+        return redirect(url_for('login'))
     return render_template('index.html')
 
 
@@ -273,29 +274,29 @@ def delete_order(order_id):
 # =============================
 @app.route('/customer_dashboard')
 def customer_dashboard():
-    if 'username' in session and session.get('role') == 'customer':
-        conn = get_db()
-        user = conn.execute("SELECT * FROM users WHERE username=?", (session['username'],)).fetchone()
-        services = conn.execute("SELECT * FROM services").fetchall()
-        orders = conn.execute("""
-            SELECT o.id, s.name AS service_name, o.kilograms,
-                   o.total_price, o.status, o.created_at
-            FROM orders o
-            JOIN services s ON o.service_id = s.id
-            WHERE o.user_id=?
-            ORDER BY o.id DESC
-        """, (session['user_id'],)).fetchall()
-        conn.close()
-
-        address = user['address'] if user['address'] else ""
-        return render_template('customer_dashboard.html',
-                               username=session['username'],
-                               address=address,
-                               services=services,
-                               orders=orders)
-    else:
+    if 'username' not in session or session.get('role') != 'customer':
         flash('Access denied! Customers only.', 'error')
         return redirect(url_for('login'))
+
+    conn = get_db()
+    user = conn.execute("SELECT * FROM users WHERE username=?", (session['username'],)).fetchone()
+    services = conn.execute("SELECT * FROM services").fetchall()
+    orders = conn.execute("""
+        SELECT o.id, s.name AS service_name, o.kilograms,
+               o.total_price, o.status, o.created_at
+        FROM orders o
+        JOIN services s ON o.service_id = s.id
+        WHERE o.user_id=?
+        ORDER BY o.id DESC
+    """, (session['user_id'],)).fetchall()
+    conn.close()
+
+    address = user['address'] if user['address'] else ""
+    return render_template('customer_dashboard.html',
+                           username=session['username'],
+                           address=address,
+                           services=services,
+                           orders=orders)
 
 
 # =============================
@@ -303,39 +304,39 @@ def customer_dashboard():
 # =============================
 @app.route('/update_address', methods=['POST'])
 def update_address():
-    if 'username' in session and session.get('role') == 'customer':
-        address = request.form['address']
-        conn = get_db()
-        conn.execute("UPDATE users SET address=? WHERE username=?", (address, session['username']))
-        conn.commit()
-        conn.close()
-        flash('Address updated successfully!', 'success')
-        return redirect(url_for('customer_dashboard'))
-    else:
+    if 'username' not in session or session.get('role') != 'customer':
         flash('Access denied!', 'error')
         return redirect(url_for('login'))
+
+    address = request.form['address']
+    conn = get_db()
+    conn.execute("UPDATE users SET address=? WHERE username=?", (address, session['username']))
+    conn.commit()
+    conn.close()
+    flash('Address updated successfully!', 'success')
+    return redirect(url_for('customer_dashboard'))
 
 
 @app.route('/place_order', methods=['POST'])
 def place_order():
-    if 'username' in session and session.get('role') == 'customer':
-        service_id = request.form['service_id']
-        kilograms = float(request.form['kilograms'])
-        conn = get_db()
-        price = conn.execute("SELECT price_per_kg FROM services WHERE id=?", (service_id,)).fetchone()['price_per_kg']
-        total = price * kilograms
-        conn.execute("""
-            INSERT INTO orders (user_id, service_id, kilograms, total_price)
-            VALUES (?, ?, ?, ?)
-        """, (session['user_id'], service_id, kilograms, total))
-        conn.commit()
-        conn.close()
-
-        flash(f'Order placed successfully! Total: ₱{total:.2f}', 'success')
-        return redirect(url_for('customer_dashboard'))
-    else:
+    if 'username' not in session or session.get('role') != 'customer':
         flash('Access denied!', 'error')
         return redirect(url_for('login'))
+
+    service_id = request.form['service_id']
+    kilograms = float(request.form['kilograms'])
+    conn = get_db()
+    price = conn.execute("SELECT price_per_kg FROM services WHERE id=?", (service_id,)).fetchone()['price_per_kg']
+    total = price * kilograms
+    conn.execute("""
+        INSERT INTO orders (user_id, service_id, kilograms, total_price)
+        VALUES (?, ?, ?, ?)
+    """, (session['user_id'], service_id, kilograms, total))
+    conn.commit()
+    conn.close()
+
+    flash(f'Order placed successfully! Total: ₱{total:.2f}', 'success')
+    return redirect(url_for('customer_dashboard'))
 
 
 # =============================

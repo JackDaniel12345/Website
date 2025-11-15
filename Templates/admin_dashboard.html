@@ -22,12 +22,12 @@
        MAIN CONTENT
   =============================== -->
   <main class="container">
-    <h2>Welcome, {{ username }} (Staff)</h2>
+    <h2>Welcome, {{ username }} (Owner)</h2>
 
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-        <div class="flash-messages">
+        <div class="flash-container">
           {% for category, message in messages %}
             <p class="flash {{ category }}">{{ message }}</p>
           {% endfor %}
@@ -46,5 +46,13 @@
       <a href="{{ url_for('admin_orders') }}" class="manage-orders-btn">🧺 Manage Orders</a>
     </section>
   </main>
+
+  <!-- Auto-hide flash message script -->
+  <script>
+    setTimeout(() => {
+      const flash = document.querySelector('.flash-container');
+      if (flash) flash.style.display = 'none';
+    }, 4000);
+  </script>
 </body>
 </html>
